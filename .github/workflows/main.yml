@@ -53,5 +53,5 @@ jobs:
     - name: Deploy to IIS
       run: |
         iisreset /stop
-        Copy-Item D:\GitHub_Action\Copy C:/inetpub/dotnetcore-webapp -Recurse -Force
+        #Copy-Item D:\GitHub_Action\Copy C:/inetpub/dotnetcore-webapp -Recurse -Force
         iisreset /start
