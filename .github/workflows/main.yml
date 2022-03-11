@@ -27,10 +27,10 @@ jobs:
     #- name: UnitTest Project
     #  run: dotnet test ./MVC_CI_Demo/MVC_CI_Demo.sln  
       
-	- name: dotnet publish
+    - name: dotnet publish
       run: dotnet publish ActionDemo/ActionDemo.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
   
-	- name: echo
+    - name: echo
       run: echo ${{env.DOTNET_ROOT}}
 
     - name: Upload artifact for deployment job
