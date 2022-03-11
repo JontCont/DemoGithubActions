@@ -3,7 +3,7 @@ name:  Build and deploy ASP.Net Core app to IIS - GitHubDemo
 on:
   push:
     branches:
-      - DEV
+      - main
   workflow_dispatch:
 
 jobs:
@@ -53,5 +53,5 @@ jobs:
     - name: Deploy to IIS
       run: |
         iisreset /stop
-        Copy-Item . C:/inetpub/dotnetcore-webapp -Recurse -Force
+        Copy-Item C:/inetpub/dotnetcore-webapp -Recurse -Force
         iisreset /start
