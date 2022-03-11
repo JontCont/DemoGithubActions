@@ -3,7 +3,7 @@ name:  Build and deploy ASP.Net Core app to IIS - GitHubDemo
 on:
   push:
     branches:
-      - main
+      - DEV
   workflow_dispatch:
 
 jobs:
