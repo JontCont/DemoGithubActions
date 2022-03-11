@@ -1,50 +1,43 @@
-name: Test CI-Actions .NET
+name:  Build and deploy ASP.Net Core app to IIS - GitHubDemo
 
-
-#----------------#
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
-#----------------#
 jobs:
   build:
-    #-------OS---------#
-    runs-on: ubuntu-latest
-    #runs-on: self-hosted#
-    #-----------------#
+    runs-on: windows-latest
+
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET
+    - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-    
-    - name: Restore NuGet Packages
-      run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
-        
-    - name: Build Project
-      run: dotnet build ./MVC_CI_Demo/MVC_CI_Demo.sln       
-      
-    - name: UnitTest Project
-      run: dotnet test ./MVC_CI_Demo/MVC_CI_Demo.sln  
-    
+        dotnet-version: '5.0.x'
+        include-prerelease: true
+
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    - name: dotnet publish
+      run: dotnet publish MVC_CI_Demo/MVC_CI_Demo.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
     - name: echo
       run: echo ${{env.DOTNET_ROOT}}
-      
+
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: .net-app
         path: ${{env.DOTNET_ROOT}}/myapp
-        
+
   deploy:
     runs-on: self-hosted
     needs: build
-    
+
     steps:
     - name: Download artifact from build job
       uses: actions/download-artifact@v2
@@ -54,5 +47,5 @@ jobs:
     - name: Deploy to IIS
       run: |
         iisreset /stop
-        Copy-Item . C:/inetpub/DemoCD/dotnetcore-webapp -Recurse -Force
+        Copy-Item . C:/inetpub/wwwroot/dotnetcore-webapp -Recurse -Force
         iisreset /start
