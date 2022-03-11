@@ -51,6 +51,5 @@ jobs:
         name: .net-app
         path: D:/GitHub_Action/Template
     - name: Deploy to IIS
-      run: |
-        iisreset /stop
-        iisreset /start
+      run: iisreset /stop 
+        
