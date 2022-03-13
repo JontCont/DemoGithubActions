@@ -52,7 +52,7 @@ jobs:
         path: D:/GitHub_Action/dotnetcore-webapp
     - name: Deploy to IIS
       run: |
-        #iisreset /stop
+        iisreset /stop
         Copy-Item D:\GitHub_Action\dotnetcore-webapp C:/inetpub -Recurse -Force
-        #iisreset /start
+        iisreset /start
         
