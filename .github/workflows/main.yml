@@ -49,10 +49,10 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: .net-app
-        path: D:/GitHub_Action/Template
+        path: D:/GitHub_Action/dotnetcore-webapp
     - name: Deploy to IIS
       run: |
         #iisreset /stop
-        Copy-Item D:\GitHub_Action\Template C:/inetpub/dotnetcore-webapp -Recurse -Force
+        Copy-Item D:\GitHub_Action\dotnetcore-webapp C:/inetpub -Recurse -Force
         #iisreset /start
         
