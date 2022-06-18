@@ -26,7 +26,7 @@ jobs:
         dotnet-version: 5.0.x
      
     - name: 測試指令內容
-      run : echo ${env:MY_SECRET}
+      run : echo $env:MY_SECRET
         
     #- name: Restore NuGet Packages
     #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
