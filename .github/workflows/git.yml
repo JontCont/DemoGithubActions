@@ -37,6 +37,8 @@ jobs:
         run: |
           echo ${{env.DOTNET_ROOT}}
           ls -list
+          cd MVC_CI_Demo
+          ls -list
           
 
 
