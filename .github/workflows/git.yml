@@ -9,12 +9,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+        MY_SECRET   : ${{secrets.commit_secret}}
+        USER_NAME   : github-actions[bot]
+        USER_EMAIL  : 41898282+github-actions[bot]@users.noreply.github.com
+        PUBLISH_DIR : ./dotnetMVC/dotnetMVC/bin/publish
+        PRJ_SLN     : ./dotnetMVC/dotnetMVC.sln
+        COMMIT_STR  : "Bots Update : $(Get-Date -Format \"yyyy.MMdd.HHmm\")"
+        
+        
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+     
+    - name: 測試指令內容
+      run : echo ${env:MY_SECRET}
+        
+    #- name: Restore NuGet Packages
+    #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
 
 
