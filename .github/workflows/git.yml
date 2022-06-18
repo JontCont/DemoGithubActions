@@ -1,0 +1,57 @@
+name:  Build and deploy ASP.Net Core app to IIS - GitHubDemo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+	
+    #- name: Restore NuGet Packages
+    #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
+    
+    #- name: Build Project
+    #  run: dotnet build ./MVC_CI_Demo/MVC_CI_Demo.sln       
+    
+    #- name: UnitTest Project
+    #  run: dotnet test ./MVC_CI_Demo/MVC_CI_Demo.sln  
+      
+    - name: dotnet publish
+      run: dotnet publish ./MVC_CI_Demo/MVC_CI_Demo.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
+  
+    - name: echo
+      run: echo ${{env.DOTNET_ROOT}}
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: .net-app
+        path: ${{env.DOTNET_ROOT}}/myapp
+
+  
+  deploy:
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: .net-app
+        path: D:/GitHub_Action/dotnetcore-webapp
+    - name: Deploy to IIS
+      run: |
+        iisreset /stop
+        Copy-Item D:\GitHub_Action\dotnetcore-webapp C:/inetpub -Recurse -Force
+        iisreset /start
