@@ -19,7 +19,5 @@ jobs:
       COMMIT_STR  : ::set-output name=date::$(date +'%Y-%m-%d')
     steps:
       - name: "Say Hello Mona it's Monday"
-        run: echo $COMMIT_STR
-        env:
-          First_Name: Mona
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
