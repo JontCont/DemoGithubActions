@@ -16,7 +16,7 @@ jobs:
       USER_EMAIL  : 41898282+github-actions[bot]@users.noreply.github.com
       PUBLISH_DIR : ./dotnetMVC/dotnetMVC/bin/publish
       PRJ_SLN     : ./dotnetMVC/dotnetMVC.sln
-      COMMIT_STR  : "Bots Update : $(date \"%Y/%m/%d %T\")" 
+      COMMIT_STR  : ::set-output name=date::$(date +'%Y-%m-%d')
     steps:
       - name: "Say Hello Mona it's Monday"
         run: echo $COMMIT_STR
