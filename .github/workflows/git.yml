@@ -34,7 +34,10 @@ jobs:
         run: dotnet publish ./MVC_CI_Demo/MVC_CI_Demo.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
   
       - name: echo
-        run: echo ${{env.DOTNET_ROOT}}
+        run: |
+          ${{env.DOTNET_ROOT}}
+          ls
+          
 
 
 
