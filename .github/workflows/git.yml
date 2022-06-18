@@ -28,7 +28,7 @@ jobs:
     - name: 測試指令內容
       env: 
         str  : "Bots Update : $(Get-Date -Format \"yyyy.MMdd.HHmm\")"
-      run : echo header= $MY_SECRET. area $str  
+      run : echo "$USER_NAME $USER_EMAIL. Today is $str!"
         
     #- name: Restore NuGet Packages
     #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
