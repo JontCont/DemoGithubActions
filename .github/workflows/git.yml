@@ -7,30 +7,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  greeting_job:
     runs-on: ubuntu-latest
     env:
-        MY_SECRET   : ${{secrets.commit_secret}}
-        USER_NAME   : github-actions[bot]
-        USER_EMAIL  : 41898282+github-actions[bot]@users.noreply.github.com
-        PUBLISH_DIR : ./dotnetMVC/dotnetMVC/bin/publish
-        PRJ_SLN     : ./dotnetMVC/dotnetMVC.sln
-        COMMIT_STR  : "Bots Update : $(Get-Date -Format \"yyyy.MMdd.HHmm\")"
-        
-        
+      Greeting: Hello
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-     
-    - name: 測試指令內容
-      env: 
-        str  : "Bots Update : $(Get-Date -Format \"yyyy.MMdd.HHmm\")"
-      run : echo "$USER_NAME $USER_EMAIL. Today is $str!"
-        
-    #- name: Restore NuGet Packages
-    #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
-
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
 
