@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  greeting_job:
+  build:
     runs-on: ubuntu-latest
     env:
       Greeting: Hello
@@ -18,17 +18,23 @@ jobs:
       PRJ_SLN     : ./dotnetMVC/dotnetMVC.sln
       COMMIT_STR  : "Bots Update : $(date \"+%Y/%m/%d %T\")"
     steps:
-      - name: Get current date
-        run: $COMMIT_STR 
-
-      - name: Test with environment variables
-        run: echo $TAG_NAME - $RELEASE_NAME
-        env:
-          TAG_NAME: nightly-tag-${{ steps.date.outputs.date }}
-          RELEASE_NAME: nightly-release-${{ steps.date.outputs.date }}
-      - name: Test with input
-        uses: actions/hello-world-docker-action@master
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
         with:
-          who-to-greet: Mona-the-Octocat-${{ steps.date.outputs.date }}
+          dotnet-version: 5.0.x    
+          
+      - name: Restore NuGet Packages
+        run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
+          
+      - name: Build Project
+        run: dotnet build ./MVC_CI_Demo/MVC_CI_Demo.sln    
+
+      - name: dotnet publish
+        run: dotnet publish ./MVC_CI_Demo/MVC_CI_Demo.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
+  
+      - name: echo
+        run: echo ${{env.DOTNET_ROOT}}
+
 
 
