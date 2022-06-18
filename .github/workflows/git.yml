@@ -16,7 +16,7 @@ jobs:
       USER_EMAIL  : 41898282+github-actions[bot]@users.noreply.github.com
       PUBLISH_DIR : ./dotnetMVC/dotnetMVC/bin/publish
       PRJ_SLN     : ./dotnetMVC/dotnetMVC.sln
-      COMMIT_STR  : date "Bots Update +%Y/%m/%d %T" 
+      COMMIT_STR  : date "+ Bots Update - %Y/%m/%d %T" 
     steps:
       - name: "Say Hello Mona it's Monday"
         run: echo "$Greeting $First_Name. Today is $COMMIT_STR"
