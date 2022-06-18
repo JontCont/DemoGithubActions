@@ -26,7 +26,9 @@ jobs:
         dotnet-version: 5.0.x
      
     - name: 測試指令內容
-      run : echo $env:MY_SECRET
+      env: 
+        str  : "Bots Update : $(Get-Date -Format \"yyyy.MMdd.HHmm\")"
+      run : echo header= $MY_SECRET. area $str  
         
     #- name: Restore NuGet Packages
     #  run: nuget restore ./MVC_CI_Demo/MVC_CI_Demo.sln 
