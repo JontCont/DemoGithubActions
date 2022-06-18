@@ -36,7 +36,7 @@ jobs:
       - name: echo string
         run: |
           echo ${{env.DOTNET_ROOT}}
-          ls
+          ls -list
           
 
 
