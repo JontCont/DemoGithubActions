@@ -19,7 +19,7 @@ jobs:
       COMMIT_STR  : date "+ Bots Update - %Y/%m/%d %T" 
     steps:
       - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $COMMIT_STR"
+        run: $COMMIT_STR
         env:
           First_Name: Mona
 
